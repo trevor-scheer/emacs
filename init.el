@@ -21,16 +21,18 @@
 
 ;(require 'js2-mode)
 ;(require 'rjsx-mode)
-;(require 'prettier-js)
+(require 'prettier-js)
 ;(require 'fiplr)
 
 ;; ==========================================
 ;; Mode settings + hooks
 ;; ==========================================
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-(add-hook 'rjsx-mode-hook 'prettier-js-mode)
+;(add-hook 'rjsx-mode-hook 'prettier-js-mode)
 (add-hook 'rjsx-mode-hook 'electric-pair-mode)
 (add-hook 'rjsx-mode-hook 'auto-complete-mode)
+(add-hook 'rjsx-mode-hook
+  (lambda () (local-set-key (kbd "C-x p") 'prettier-js)))
 
 ;; ==========================================
 ;; Key bindings
