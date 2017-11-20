@@ -9,11 +9,12 @@
   (package-refresh-contents))
 
 (setq package-list '(
-  auto-complete
   js2-mode
   rjsx-mode
+  php-mode
   prettier-js
-  fiplr)) 
+  ido-vertical-mode
+  )) 
 
 (dolist (package package-list)
   (unless (package-installed-p package)
@@ -22,12 +23,18 @@
 ;(require 'js2-mode)
 ;(require 'rjsx-mode)
 (require 'prettier-js)
-;(require 'fiplr)
+
 
 ;; ==========================================
-;; Mode settings + hooks
+;; Default file modes
 ;; ==========================================
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+
+;; ==========================================
+;; RJSX mode + hooks
+;; ==========================================
+;; Uncomment below for prettier all the time
 ;(add-hook 'rjsx-mode-hook 'prettier-js-mode)
 (add-hook 'rjsx-mode-hook 'electric-pair-mode)
 (add-hook 'rjsx-mode-hook 'auto-complete-mode)
@@ -35,9 +42,14 @@
   (lambda () (local-set-key (kbd "C-x p") 'prettier-js)))
 
 ;; ==========================================
-;; Key bindings
+;; IDO mode + hooks
 ;; ==========================================
-(global-set-key (kbd "C-x f") 'fiplr-find-file)
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
+(global-set-key (kbd "C-x b") 'ido-switch-buffer)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode)
+(ido-vertical-mode t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -51,3 +63,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
